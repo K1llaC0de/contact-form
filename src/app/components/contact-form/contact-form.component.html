@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="panel">
+        <h1>Contact Us</h1>
+        <div id="initial-form">
+            <form [formGroup]="profileForm">
+                <div id="name-group">
+                    <div>
+                        <label for="first-name">First Name <label id="asterisco">*</label>
+                            <input id="first-name" type="text" formControlName="firstName"
+                                [ngStyle]="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched ? {'border': '1px solid hsl(0, 66%, 54%)'} : {}">
+                            <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched"
+                                class="error">
+                                This field is required.
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="last-name">Last Name <label id="asterisco">*</label>
+                            <input id="last-name" type="text" formControlName="lastName"
+                                [ngStyle]="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched ? {'border': '1px solid hsl(0, 66%, 54%)'} : {}">
+                            <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched"
+                                class="error">
+                                This field is required.
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <label style="margin-top: 20px;">Email Address <label id="asterisco">*</label>
+                    <input id="email" type="text" formControlName="email"
+                        [ngStyle]="profileForm.get('email')?.invalid && profileForm.get('email')?.touched ? {'border': '1px solid hsl(0, 66%, 54%)'} : {}">
+                    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="error">
+                        <p *ngIf="email?.errors?.['required']">This field is required</p>
+                        <p *ngIf="email?.errors?.['email']">Please enter a valid email address</p>
+                    </div>
+                </label>
+                <label style="margin-top: 20px;">Query Type <label id="asterisco">*</label>
+                    <div id="group-query">
+                        <div *ngFor="let type of types" class="field-checkbox">
+                            <p-radioButton [inputId]="type.name" [value]="type.name" formControlName="selectedType" />
+                            <label [for]="type.name" class="ml-2">
+                                {{ type.name }}
+                            </label>
+                        </div>
+                    </div>
+                    <div *ngIf="profileForm.get('selectedType')?.touched" class="error">
+                        Please select a query type
+                    </div>
+                </label>
+                <div id="message">
+                    <label style="margin-top: 20px;">Message <label id="asterisco">*</label>
+                        <textarea rows="5" cols="30" pInputTextarea autoResize="true" formControlName="message"
+                        [ngStyle]="profileForm.get('message')?.invalid && profileForm.get('message')?.touched ? {'border': '1px solid hsl(0, 66%, 54%)'} : {}"></textarea>
+                        <div *ngIf="profileForm.get('message')?.invalid && profileForm.get('message')?.touched"
+                            class="error">
+                            This field is required.
+                        </div>
+                    </label>
+                </div>
+                <div id="checkbox">
+                    <p-checkbox formControlName="checked" inputId="checked"></p-checkbox>
+                    <label for="checked"> I consent to being contacted by the team
+                        <label id="asterisco">*</label>
+                        <div *ngIf="profileForm.get('checked')?.touched" class="error">
+                            To submit this form, please consent to being contacted
+                        </div>
+                    </label>
+                </div>
+            </form>
+            <p-button label="Submit" class="submit-button" (click)="onSubmit()"
+                [disabled]="profileForm.invalid"></p-button>
+        </div>
+        <p-toast></p-toast>
+    </div>
+</div>
