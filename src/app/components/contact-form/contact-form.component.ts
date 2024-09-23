@@ -1,10 +1,11 @@
 // contact-form.component.ts
-import { CommonModule } from '@angular/common'; // Importa CommonModule, no BrowserModule
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { Message, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { MessagesModule } from 'primeng/messages';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToastModule } from 'primeng/toast';
 
@@ -17,15 +18,18 @@ import { ToastModule } from 'primeng/toast';
     RadioButtonModule,
     CheckboxModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    MessagesModule
   ],
   providers: [MessageService],
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss']
 })
 export class ContactFormComponent {
+  
   profileForm: FormGroup;
-
+  submitted: boolean = false;
+  
   constructor(private formBuilder: FormBuilder, private messageService: MessageService) {
     this.profileForm = new FormGroup({});
   }
@@ -47,7 +51,23 @@ export class ContactFormComponent {
   }
 
   onSubmit() {
-    console.log(this.profileForm.value);
+    this.profileForm.markAllAsTouched();
+    if (this.profileForm.valid) {
+      this.submitted = true;
+      console.log('Form submitted:', this.profileForm.value);
+      /* setTimeout(() => {
+        const cardElement = document.querySelector('.card');
+        if (cardElement) {
+          cardElement.classList.add('hide');
+        }
+      }, 2500); // 2.5 segundos
+  
+      // Ocultar el mensaje después de 3 segundos
+      setTimeout(() => {
+        this.submitted = false;
+      }, 5000); // 3 segundos
+    } */
+    }
   }
 
   get email() {

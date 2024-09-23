@@ -4,6 +4,7 @@ import { ContactFormComponent } from './components/contact-form/contact-form.com
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    ContactFormComponent 
+    ContactFormComponent ,
+    MessagesModule
   ]
 })
 export class AppComponent { }
