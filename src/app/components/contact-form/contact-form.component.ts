@@ -47,13 +47,7 @@ export class ContactFormComponent {
   }
 
   onSubmit() {
-    if (this.profileForm.valid) {
-      console.log('Form Submitted:', this.profileForm.value);
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form submitted successfully!' });
-      this.profileForm.reset();
-    } else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill out the form correctly.' });
-    }
+    console.log(this.profileForm.value);
   }
 
   get email() {

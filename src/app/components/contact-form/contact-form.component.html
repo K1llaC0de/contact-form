@@ -33,42 +33,46 @@
                         <p *ngIf="email?.errors?.['email']">Please enter a valid email address</p>
                     </div>
                 </label>
+
                 <label style="margin-top: 20px;">Query Type <label id="asterisco">*</label>
                     <div id="group-query">
                         <div *ngFor="let type of types" class="field-checkbox">
-                            <p-radioButton [inputId]="type.name" [value]="type.name" formControlName="selectedType" />
-                            <label [for]="type.name" class="ml-2">
-                                {{ type.name }}
-                            </label>
+                            <p-radioButton [inputId]="type.name" [value]="type.name"
+                                formControlName="selectedType"></p-radioButton>
+                            <label [for]="type.name" class="ml-2">{{ type.name }}</label>
                         </div>
                     </div>
-                    <div *ngIf="profileForm.get('selectedType')?.touched" class="error">
+                    <div *ngIf="profileForm.get('selectedType')?.invalid && profileForm.get('selectedType')?.touched" class="error">
                         Please select a query type
                     </div>
                 </label>
+
                 <div id="message">
                     <label style="margin-top: 20px;">Message <label id="asterisco">*</label>
                         <textarea rows="5" cols="30" pInputTextarea autoResize="true" formControlName="message"
-                        [ngStyle]="profileForm.get('message')?.invalid && profileForm.get('message')?.touched ? {'border': '1px solid hsl(0, 66%, 54%)'} : {}"></textarea>
+                            [ngStyle]="profileForm.get('message')?.invalid && profileForm.get('message')?.touched ? {'border': '1px solid hsl(0, 66%, 54%)'} : {}">
+                        </textarea>
                         <div *ngIf="profileForm.get('message')?.invalid && profileForm.get('message')?.touched"
                             class="error">
                             This field is required.
                         </div>
                     </label>
                 </div>
+
                 <div id="checkbox">
-                    <p-checkbox formControlName="checked" inputId="checked"></p-checkbox>
+                    <p-checkbox formControlName="checked" inputId="checked" binary="true"></p-checkbox>
                     <label for="checked"> I consent to being contacted by the team
                         <label id="asterisco">*</label>
-                        <div *ngIf="profileForm.get('checked')?.touched" class="error">
+                        <div *ngIf="profileForm.get('checked')?.invalid && profileForm.get('checked')?.touched"
+                            class="error">
                             To submit this form, please consent to being contacted
                         </div>
                     </label>
                 </div>
+
+                <p-button label="Submit" class="submit-button" [disabled]="!profileForm.valid" (click)="onSubmit()" >
+                </p-button>
             </form>
-            <p-button label="Submit" class="submit-button" (click)="onSubmit()"
-                [disabled]="profileForm.invalid"></p-button>
         </div>
-        <p-toast></p-toast>
     </div>
 </div>

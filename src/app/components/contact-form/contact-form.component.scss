@@ -124,6 +124,12 @@ textarea {
   }
 }
 
+::ng-deep .submit-button .p-button[disabled] {
+  background-color: hsl(0, 0%, 80%) !important;
+  cursor: not-allowed;
+}
+
+
 #initial-form {
   display: flex;
   flex-direction: column;
